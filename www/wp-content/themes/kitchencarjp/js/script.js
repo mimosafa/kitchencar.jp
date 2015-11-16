@@ -12,11 +12,10 @@ jQuery( function( $ ) {
 	 */
 	var $wpadminbar = $( '#wpadminbar' );
 	if ( $wpadminbar.length ) {
-		var navbarTop = function() {
-			var adminbar = $( '#wpadminbar' );
-			$navbar.css( 'top', adminbar.height() + 'px' );
+		var navbarOffsetTop = function() {
+			$navbar.css( 'top', $wpadminbar.height() + 'px' );
 		};
-		navbarTop();
+		navbarOffsetTop();
 		/**
 		 * @see http://blog.tsumikiinc.com/article/20141125_javascript-event-throttle.html
 		 */
@@ -26,7 +25,7 @@ jQuery( function( $ ) {
 			return function() {
 				if ( ( lastTime + interval ) <= new Date().getTime() ) {
 					lastTime = new Date().getTime();
-					navbarTop();
+					navbarOffsetTop();
 				}
 			};
 		} )();
