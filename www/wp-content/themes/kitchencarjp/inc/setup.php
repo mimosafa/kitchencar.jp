@@ -10,27 +10,7 @@
  *
  * @since 0.0.0
  */
-spl_autoload_register(
-	function ( $class ) {
-		static $app;
-		if ( ! isset( $app ) ) {
-			$app = TEMPLATEPATH . '/app';
-		}
-		$strings = explode( '\\', $class );
-		if ( $n = count( $strings ) - 1 ) {
-			if ( $strings[0] === 'KCJP' ) {
-				$path = $app;
-				for ( $i = 1; $i <= $n; $i++ ) {
-					$path .= '/' . $strings[$i];
-				}
-				$path .= '.php';
-				if ( is_readable( $path ) ) {
-					require_once $path;
-				}
-			}
-		}
-	}
-);
+spl_autoload_register( 'kcjp_autoloader' );
 
 /**
  * Theme Supports
@@ -40,4 +20,34 @@ spl_autoload_register(
 add_theme_support( 'title-tag' );
 add_theme_support( 'post-thumbnails' );
 
+/**
+ * Styles & JavaScripts
+ *
+ * @since 0.0.0
+ */
 KCJP\Scripts::init();
+
+/**
+ * Class Loader Application
+ *
+ * @since 0.0.0
+ */
+function kcjp_autoloader( $class ) {
+	static $app;
+	if ( ! isset( $app ) ) {
+		$app = TEMPLATEPATH . '/app';
+	}
+	$strings = explode( '\\', $class );
+	if ( $n = count( $strings ) - 1 ) {
+		if ( $strings[0] === 'KCJP' ) {
+			$path = $app;
+			for ( $i = 1; $i <= $n; $i++ ) {
+				$path .= '/' . $strings[$i];
+			}
+			$path .= '.php';
+			if ( is_readable( $path ) ) {
+				require_once $path;
+			}
+		}
+	}
+}

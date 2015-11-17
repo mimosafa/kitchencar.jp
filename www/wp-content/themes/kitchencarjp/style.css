@@ -4,6 +4,31 @@
  Version: 0.0.0
  */
 
+#wrap {
+  overflow: hidden;
+  margin-top: 54px; /* Navbar Height */
+  min-height: 100%;
+}
+#footer {/*
+  position: absolute;
+  bottom: 0;*/
+  min-height: 60px;
+  width: 100%;
+  background-color: #af0b0c;
+  color: #fff;
+  padding: 15px 0 0;/*
+  background: url(images/stadium2002.png) bottom right no-repeat;
+  -moz-background-size: 17% auto;
+       background-size: 17% auto;*/
+}
+body {
+  /*margin-bottom: 60px;*/
+}
+#contents img {
+  max-width: 100%;
+  height: auto;
+}
+
 /*========================================
 Navbar
 ========================================*/
