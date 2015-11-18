@@ -1,43 +1,56 @@
 <?php
 /**
- * Kitchencar.jp Theme
+ * Kitchencar.jp Theme index.php
  *
  * @since 0.0.0
  */
 
-get_header();
+/**
+ * Cache Queried Object
+ *
+ * @var null|Object
+ */
+$_queried = get_queried_object();
 
 /**
- * Home
+ * Context for Viws
+ *
+ * @var string
  */
-if ( is_home() ) {
-	/**
-	 *
-	 */
-	kcjp_lead_contents();
-}
+$_context = apply_filters( 'kcjp_view_context', '', $_queried );
 
-$specificInfo = '';
-$mainClass = '';
-if ( kcjp_has_specific_page_info() ) {
-	$specificInfo .= "\t\t" . '<div class="col-md-4 pull-right" id="kcjp-page-info" style="height:200px; background-color: #eee">';
-	$specificInfo .= kcjp_specific_page_info();
-	$specificInfo .= "\t\t" . '</div>';
-	$mainClass .= ' pull-left';
-}
+/**
+ * @var boolean
+ */
+$_use_glid_system          = apply_filters( 'kcjp_use_glid_system',          true,  $_queried );
+$_has_contents_information = apply_filters( 'kcjp_has_contents_information', false, $_queried ) && $_use_glid_system;
+$_show_contents_aside      = apply_filters( 'kcjp_show_contents_aside',      true,  $_queried ) && $_use_glid_system;
 
-?>
-<div class="container" id="contents">
-	<div class="row">
-		<?php echo $specificInfo; ?>
-		<div class="col-md-8<?php echo $mainClass; ?>" id="kcjp-main">
-			<?php get_template_part( 'loop' ); ?>
+/**
+ * @var string
+ */
+$_contents_class       = apply_filters( 'kcjp_contents_class',       'container' );
+$_contents_main_class  = apply_filters( 'kcjp_contents_main_class',  'col-md-8'  );
+$_contents_aside_class = apply_filters( 'kcjp_contents_aside_class', 'col-md-4'  );
+
+get_header( $_context );
+
+do_action( 'kcjp_lead_contents', $_queried ); ?>
+
+<div class="<?php esc_attr_e( $_contents_class ); ?>" id="kcjp-contents">
+	<?php if ( $_use_glid_system ) { ?><div class="row"><?php } ?>
+		<?php if ( $_has_contents_information ) { ?><section class="col-md-4 pull-right" id="kcjp-contents-information">
+			<?php do_action( 'kcjp_contents_information', $_queried ); ?>
+		</section><?php } ?>
+		<div class="<?php esc_attr_e( $_contents_main_class ); ?>" id="kcjp-contents-main">
+			<?php get_template_part( 'loop', $_context ); ?>
 		</div>
-		<div class="col-md-4 pull-right" id="kcjp-side">
+		<?php if ( $_show_contents_aside ) { ?><aside class="<?php esc_attr_e( $_contents_aside_class ); ?>" id="kcjp-contents-aside">
 			<?php get_sidebar(); ?>
-		</div>
-	</div>
+		</aside><?php } ?>
+	<?php if ( $_use_glid_system ) { ?></div><?php } ?>
 </div>
 
 <?php
-get_footer();
+
+get_footer( $_context );

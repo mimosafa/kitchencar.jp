@@ -6,11 +6,51 @@
  */
 
 /**
- * Register Auto Class Loader
+ * Register Auto Class Loaders
  *
  * @since 0.0.0
  */
-spl_autoload_register( 'kcjp_autoloader' );
+spl_autoload_register( 'kcjp_view_autoloader' );
+spl_autoload_register( 'kcjp_app_autoloader' );
+
+/**
+ * Auto Loader for View Classes
+ *
+ * @since 0.0.0
+ */
+function kcjp_view_autoloader( $class ) {
+	static $dir;
+	if ( ! isset( $dir ) ) { $dir = TEMPLATEPATH . '/view'; }
+	$strings = explode( '\\', $class );
+	$n = count( $strings ) - 1;
+	if ( $n > 1 ) {
+		if ( $strings[0] === 'KCJP' && $strings[1] === 'View' ) {
+			$path = $dir;
+			for ( $i = 2; $i <= $n; $i++ ) { $path .= '/' . $strings[$i]; }
+			$path .= '.php';
+			if ( is_readable( $path ) ) { require_once $path; }
+		}
+	}
+}
+
+/**
+ * Auto Loader for Application Classes
+ *
+ * @since 0.0.0
+ */
+function kcjp_app_autoloader( $class ) {
+	static $dir;
+	if ( ! isset( $dir ) ) { $dir = TEMPLATEPATH . '/app'; }
+	$strings = explode( '\\', $class );
+	if ( $n = count( $strings ) - 1 ) {
+		if ( $strings[0] === 'KCJP' ) {
+			$path = $dir;
+			for ( $i = 1; $i <= $n; $i++ ) { $path .= '/' . $strings[$i]; }
+			$path .= '.php';
+			if ( is_readable( $path ) ) { require_once $path; }
+		}
+	}
+}
 
 /**
  * Theme Supports
@@ -27,27 +67,21 @@ add_theme_support( 'post-thumbnails' );
  */
 KCJP\Scripts::init();
 
-/**
- * Class Loader Application
- *
- * @since 0.0.0
- */
-function kcjp_autoloader( $class ) {
-	static $app;
-	if ( ! isset( $app ) ) {
-		$app = TEMPLATEPATH . '/app';
-	}
-	$strings = explode( '\\', $class );
-	if ( $n = count( $strings ) - 1 ) {
-		if ( $strings[0] === 'KCJP' ) {
-			$path = $app;
-			for ( $i = 1; $i <= $n; $i++ ) {
-				$path .= '/' . $strings[$i];
-			}
-			$path .= '.php';
-			if ( is_readable( $path ) ) {
-				require_once $path;
-			}
-		}
-	}
+if ( class_exists( 'mimosafa\\ClassLoader' ) ) {
+	/**
+	 * Kitchencar.jp Repositories
+	 *
+	 * @since 0.0.0
+	 */
+	KCJP\Domains::init();
 }
+
+KCJP\View::init();
+
+register_sidebar( [
+	'id' => 'sidebar-1',
+	'name' => 'RightSideBar',
+	'description' => 'Widgets in this area will be shown on the right-hand side.',
+	'before_title' => '<h1>',
+	'after_title' => '</h1>'
+] );
