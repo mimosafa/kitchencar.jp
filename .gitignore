@@ -2,5 +2,6 @@
 !/site.yml
 !/www/
 !.gitignore
+!.gitmodules
 !/env.sublime-project
 !/README.md
