@@ -50,13 +50,6 @@ class Home {
 		-moz-background-size: cover;
 		     background-size: cover;
 	}
-	#kcjp-main-visual::before {
-		display: block;
-		height: 100%;
-		/*background: url( <?php echo $bg_stadium ?> ) bottom right no-repeat;
-		-moz-background-size: auto 93%;
-		     background-size: auto 93%;*/
-	}
 	#kcjp-information {
 		position: absolute;
 		top: 10px;
@@ -89,19 +82,26 @@ class Home {
 		     background-size: contain;
 	}
 </style>
-<header class="container-fluid" id="kcjp-main-visual">
-	<section id="kcjp-information">
-		<h1><?php bloginfo( 'name' ); ?></h1>
-		<dl>
-			<dt>開催日時</dt>
-			<dd>2015/12/6 日曜日 10:00 ~ 16:00 <small>雨天決行（荒天中止） 売り切れ次第終了致します。選手権の投票は15:00までです。</small></dd>
-			<dt>開催場所</dt>
-			<dd>埼玉スタジアム２００２ 北広場</dd>
-			<dt>入場料</dt>
-			<dd>入場無料</dd>
-		</dl>
-	</section>
-</header><?php
+<header>
+	<div id="kcjp-main-visual">
+		<section id="kcjp-information">
+			<h1><?php bloginfo( 'name' ); ?></h1>
+			<dl>
+				<dt>開催日時</dt>
+				<dd>2015/12/6 日曜日 10:00 ~ 16:00 <small>雨天決行（荒天中止） 売り切れ次第終了致します。選手権の投票は15:00までです。</small></dd>
+				<dt>開催場所</dt>
+				<dd>埼玉スタジアム２００２ 北広場</dd>
+				<dt>入場料</dt>
+				<dd>入場無料</dd>
+			</dl>
+		</section>
+	</div>
+</header>
+<script>
+	if ( window.innerWidth > 1200 ) {
+		jQuery( '#kcjp-main-visual' ).removeClass( 'container-fluid' ).addClass( 'container' );
+	}
+</script><?php
 	}
 
 }

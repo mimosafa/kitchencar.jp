@@ -20,7 +20,7 @@ jQuery( function( $ ) {
 		 * @see http://blog.tsumikiinc.com/article/20141125_javascript-event-throttle.html
 		 */
 		var navbarResized = ( function() {
-			var interval = 300;
+			var interval = 100;
 			var lastTime = new Date().getTime() - interval;
 			return function() {
 				if ( ( lastTime + interval ) <= new Date().getTime() ) {

@@ -9,30 +9,30 @@ jQuery( function( $ ) {
 
 	if ( $caption.length ) {
 
-		var contentsMainHeight = function() {
+		var setHeight = function() {
 			if ( window.innerWidth > 991 ) {
 				$main.css( 'minHeight', $caption.height() + $aside.height() );
 			} else {
 				$main.css( 'minHeight', '' );
 			}
 		};
-		contentsMainHeight();
+		setHeight();
 
-		var contentsMainHeightEvent = ( function() {
+		var allocationEvent = ( function() {
 			var interval = 100,
 			    lastTime = new Date().getTime() - interval;
 			return function() {
 				if ( ( lastTime + interval ) <= new Date().getTime() ) {
 					lastTime = new Date().getTime();
-					contentsMainHeight();
+					setHeight();
 				}
 			};
 		} )();
 
 		if ( window.addEventListener ) {
-			window.addEventListener( 'resize', contentsMainHeightEvent, false );
+			window.addEventListener( 'resize', allocationEvent, false );
 		} else if ( window.attachEvent ){
-			window.attachEvent( 'onresize', contentsMainHeightEvent );
+			window.attachEvent( 'onresize', allocationEvent );
 		}
 
 	}
