@@ -5,16 +5,23 @@
  * @since 0.0.0
  */
 
-if ( have_posts() ) :
-	while ( have_posts() ) : the_post();
+/**
+ * H tag Number
+ *
+ * @var stiring 2|3
+ */
+$n = is_singular() ? '2' : '3';
 
-?><section id="post-<?php the_ID(); ?>" <?php post_class(); ?>><?php
+if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-		the_ttl( '<h3>', '</h3>' );
+<section id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<?php
+
+		the_ttl( "<h{$n}>", "</h{$n}>" );
 		the_content();
 		the_date();
 
-?></section><?php
+	?>
+</section>
 
-	endwhile;
-endif;
+<?php endwhile; endif;

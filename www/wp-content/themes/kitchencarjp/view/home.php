@@ -25,7 +25,7 @@ class Home {
 	 * @since 0.0.0
 	 */
 	private function __construct() {
-		add_action( 'kcjp_lead_contents', [ $this, 'main_visual' ], 0 );
+		Allocation::getInstance()->add_lead_contents( [ $this, 'main_visual' ] );
 	}
 
 	/**
