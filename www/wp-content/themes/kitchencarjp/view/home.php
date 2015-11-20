@@ -25,7 +25,7 @@ class Home {
 	 * @since 0.0.0
 	 */
 	private function __construct() {
-		Allocation::getInstance()->add_lead_contents( [ $this, 'main_visual' ] );
+		Gene::getInstance()->add_lead_contents( [ $this, 'main_visual' ] );
 	}
 
 	/**

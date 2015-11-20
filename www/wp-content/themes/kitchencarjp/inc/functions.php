@@ -33,30 +33,22 @@ function _kcjp_autoloader( $class ) {
 	/**
 	 * @var string # directory path
 	 */
-	static $viewDir, $appDir;
-	$strings = explode( '\\', $class );
-	if ( $strings[0] === 'KCJP' && $n = count( $strings ) - 1 ) {
-		if ( $n > 1 && $strings[1] === 'View' ) {
-			/**
-			 * View Classes
-			 *
-			 * @since 0.0.0
-			 */
-			if ( ! isset( $viewDir ) ) { $viewDir = TEMPLATEPATH . '/view'; }
-			$path = $viewDir;
+	static $views, $apps;
+	$views ?: $views = get_template_directory() . '/view';
+	$apps  ?: $apps  = get_template_directory() . '/app';
+	$arr = explode( '\\', $class );
+	if ( $arr[0] === 'KCJP' && $n = count( $arr ) - 1 ) {
+		// View Classes
+		if ( $n > 1 && $arr[1] === 'View' ) {
+			$path = $views;
 			$i = 2;
 		}
+		// Application Classes
 		else {
-			/**
-			 * Application Classes
-			 *
-			 * @since 0.0.0
-			 */
-			if ( ! isset( $appDir ) ) { $appDir = TEMPLATEPATH . '/app'; }
-			$path = $appDir;
+			$path = $apps;
 			$i = 1;
 		}
-		for ( $i; $i <= $n; $i++ ) { $path .= '/' . $strings[$i]; }
+		for ( $i; $i <= $n; $i++ ) { $path .= '/' . $arr[$i]; }
 		$path .= '.php';
 		if ( is_readable( $path ) ) { require_once $path; }
 	}

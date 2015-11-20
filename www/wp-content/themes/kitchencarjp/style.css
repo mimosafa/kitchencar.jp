@@ -4,8 +4,17 @@
  Version: 0.0.0
  */
 
+/*======================================================================================
+Sticky footer with navbar @see http://getbootstrap.com/examples/sticky-footer-navbar/
+======================================================================================*/
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px; /* Footer Height */
+}
 #wrap {
-  overflow: hidden;
   padding-top: 54px; /* Navbar Height */
 }
 #footer {
@@ -13,20 +22,47 @@
   bottom: 0;
   min-height: 60px;
   width: 100%;
-  background-color: #af0b0c;
-  color: #fff;
-  padding: 15px 0 0;
 }
+
+/*========================================
+@see PHP Class KCJP\View\Gene
+========================================*/
+@media (max-width: 991px) {
+  .break-at-medium .contents-caption.pull-right,
+  .break-at-medium .contents-caption.pull-left,
+  .break-at-medium .contents-main.pull-right,
+  .break-at-medium .contents-main.pull-left,
+  .break-at-medium .contents-aside.pull-right,
+  .break-at-medium .contents-aside.pull-left {
+    float: none !important;
+  }
+}
+@media (max-width: 767px) {
+  .break-at-small .contents-caption.pull-right,
+  .break-at-small .contents-caption.pull-left,
+  .break-at-small .contents-main.pull-right,
+  .break-at-small .contents-main.pull-left,
+  .break-at-small .contents-aside.pull-right,
+  .break-at-small .contents-aside.pull-left {
+    float: none !important;
+  }
+}
+
+/*========================================
+Elements in Contents
+========================================*/
 #contents-container img {
   max-width: 100%;
   height: auto;
 }
-body {
-  margin-bottom: 60px;
-}
-html {
-  position: relative;
-  min-height: 100%;
+
+/*========================================
+Footer
+========================================*/
+#footer {
+  padding: 15px 0 0;
+  background-color: #af0b0c;
+  color: #fff;
 }
 
 /*========================================
