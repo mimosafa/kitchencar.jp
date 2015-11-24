@@ -52,6 +52,9 @@ class Gene {
 			 */
 			define( 'KCJP_SIDEBAR_COLUMN_POSITION', 'right' );
 		}
+		if ( ! defined( 'KCJP_CONTAINER_FLUID' ) ) {
+			define( 'KCJP_CONTAINER_FLUID', false );
+		}
 		$this->prepare();
 		add_action( 'wp_enqueue_scripts', [ $this, 'localize_script' ], 11 );
 	}
@@ -66,6 +69,12 @@ class Gene {
 				$this->main_class    = 'col-sm-8';
 				$this->aside_class   = 'col-sm-4';
 				$this->break_point    = 767;
+				break;
+			case 'xsmall' :
+				$this->caption_class = 'col-xs-4';
+				$this->main_class    = 'col-xs-8';
+				$this->aside_class   = 'col-xs-4';
+				$this->break_point    = 477;
 				break;
 			default :
 				/**
@@ -131,7 +140,7 @@ class Gene {
 
 	private function _container_class() {
 		$size = 'medium';
-		if ( in_array( KCJP_COLUMN_LAYOUT_MIN_SIZE, [ 'small' ], true ) ) {
+		if ( in_array( KCJP_COLUMN_LAYOUT_MIN_SIZE, [ 'small', 'xsmall' ], true ) ) {
 			$size = KCJP_COLUMN_LAYOUT_MIN_SIZE;
 		}
 		return ' break-at-' . $size;
@@ -141,6 +150,9 @@ class Gene {
 		$size = 'md';
 		if ( KCJP_COLUMN_LAYOUT_MIN_SIZE === 'small' ) {
 			$size = 'sm';
+		}
+		else if ( KCJP_COLUMN_LAYOUT_MIN_SIZE === 'xsmall' ) {
+			$size = 'xs';
 		}
 		if ( $area === 'main' ) {
 			return ' col-' . $size .'-push-4';
@@ -160,6 +172,9 @@ class Gene {
 		if ( property_exists( __CLASS__, $var ) ) {
 			if ( ! $this->use_grid() ) {
 				add_filter( '_view_gene_' . $var, '__return_empty_string' );
+			}
+			if ( in_array( $area, [ 'container', 'row' ], true ) && KCJP_CONTAINER_FLUID ) {
+				//
 			}
 			return apply_filters( '_view_gene_' . $var, $this->$var );
 		}

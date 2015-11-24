@@ -47,6 +47,17 @@ body {
     float: none !important;
   }
 }
+@media (max-width: 477px) {
+  .break-at-xsmall .contents-caption.pull-right,
+  .break-at-xsmall .contents-caption.pull-left,
+  .break-at-xsmall .contents-main.pull-right,
+  .break-at-xsmall .contents-main.pull-left,
+  .break-at-xsmall .contents-aside.pull-right,
+  .break-at-xsmall .contents-aside.pull-left {
+    float: none !important;
+    width: auto;
+  }
+}
 
 /*========================================
 Elements in Contents

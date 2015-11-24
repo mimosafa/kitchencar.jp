@@ -5,7 +5,7 @@
  * @package kcjp
  */
 
-// define( 'KCJP_COLUMN_LAYOUT_MIN_SIZE',  'small' );
+define( 'KCJP_COLUMN_LAYOUT_MIN_SIZE',  'xsmall' );
 // define( 'KCJP_SIDEBAR_COLUMN_POSITION', 'left'  );
 
 /**
