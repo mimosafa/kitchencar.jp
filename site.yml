@@ -10,7 +10,7 @@ chef_cookbook_path: ./provision
 #
 # Virtual Machine Settings
 #
-memory: 512
+memory: 1024
 cpus: 1
 
 #
@@ -87,7 +87,7 @@ theme_unit_test_uri: https://wpcom-themes.svn.automattic.com/demo/theme-unit-tes
 #
 # DB will be reset when provision
 #
-reset_db_on_provision: true
+reset_db_on_provision: false
 
 #
 # Are you hurrying a lot?
