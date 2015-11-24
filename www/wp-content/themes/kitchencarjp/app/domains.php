@@ -33,6 +33,7 @@ class Domains {
 	private function create_repositories() {
 		$kitchencar = mWP\Repository\PostType::init( 'kitchencar', 'post' );
 		$menu_item  = mWP\Repository\PostType::init( 'menu_item', 'post' );
+		$kcjp = mWP\Repository\PostType::init( 'kcjp', 'post' );
 	}
 
 }
