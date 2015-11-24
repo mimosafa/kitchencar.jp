@@ -11,34 +11,47 @@ jQuery( function( $ ) {
 
 	var $caption = $( '.contents-caption' ),
 	    $main    = $( '.contents-main' ),
-	    $aside   = $( '.contents-aside' );
+	    $aside   = $( '.contents-aside' ),
+	    $footer  = $( '#footer' );
+
+	var thinResizeEvent = function( callback, bool, intval ) {
+		var cb = callback,
+		    dofirst = bool,
+		    interval = intval;
+		if ( dofirst == true ) {
+			cb();
+		}
+		if ( typeof interval === 'undefined' ) {
+			interval = 100;
+		}
+		/**
+		 * @see http://blog.tsumikiinc.com/article/20141125_javascript-event-throttle.html
+		 */
+		var intervaledResize = ( function() {
+			var lastTime = new Date().getTime() - interval;
+			return function() {
+				if ( ( lastTime + interval ) <= new Date().getTime() ) {
+					lastTime = new Date().getTime();
+					cb();
+				}
+			};
+		} )();
+
+		if ( window.addEventListener ) {
+			window.addEventListener( 'resize', intervaledResize, false );
+		} else if ( window.attachEvent ){
+			window.attachEvent( 'onresize', intervaledResize );
+		}
+	};
 
 	/*
 	 * Fixed Navbar Position with WordPress Adminbar
 	 */
 	if ( $wpadminbar.length ) {
 		var navbarOffsetTop = function() {
-			$navbar.css( 'top', $wpadminbar.height() + 'px' );
+			$navbar.css( 'top', $wpadminbar.height() );
 		};
-		navbarOffsetTop();
-		/**
-		 * @see http://blog.tsumikiinc.com/article/20141125_javascript-event-throttle.html
-		 */
-		var navbarResized = ( function() {
-			var interval = 100;
-			var lastTime = new Date().getTime() - interval;
-			return function() {
-				if ( ( lastTime + interval ) <= new Date().getTime() ) {
-					lastTime = new Date().getTime();
-					navbarOffsetTop();
-				}
-			};
-		} )();
-		if ( window.addEventListener ) {
-			window.addEventListener( 'resize', navbarResized, false );
-		} else if ( window.attachEvent ){
-			window.attachEvent( 'onresize', navbarResized );
-		}
+		thinResizeEvent( navbarOffsetTop, true );
 	}
 
 	/*
@@ -46,7 +59,7 @@ jQuery( function( $ ) {
 	 * @see PHP Class KCJP\View\Gene
 	 */
 	if ( $caption.length ) {
-		var setHeight = function() {
+		var setContentsMainHeight = function() {
 			/*
 			 * @uses KCJP_LAYOUT
 			 */
@@ -56,22 +69,13 @@ jQuery( function( $ ) {
 				$main.css( 'minHeight', '' );
 			}
 		};
-		setHeight();
-		var allocationEvent = ( function() {
-			var interval = 100,
-			    lastTime = new Date().getTime() - interval;
-			return function() {
-				if ( ( lastTime + interval ) <= new Date().getTime() ) {
-					lastTime = new Date().getTime();
-					setHeight();
-				}
-			};
-		} )();
-		if ( window.addEventListener ) {
-			window.addEventListener( 'resize', allocationEvent, false );
-		} else if ( window.attachEvent ){
-			window.attachEvent( 'onresize', allocationEvent );
-		}
+		thinResizeEvent( setContentsMainHeight, true );
 	}
+
+	var setFooterHeight = function() {
+		var padding = $footer.height() + 40;
+		$( 'body' ).css( 'marginBottom', padding );
+	};
+	thinResizeEvent( setFooterHeight, true );
 
 } );
