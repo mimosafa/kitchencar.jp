@@ -1,45 +1,16 @@
 <?php
-namespace KCJP\View;
-/**
- * Kitchencar.jp Page Layout Class
- *
- * @since 0.0.0
- */
-class Home {
+add_filter( 'kcjp_view_gene', 'kcjp_view_home' );
 
-	/**
-	 * @access public
-	 *
-	 * @since 0.0.0
-	 */
-	public static function init() {
-		static $instance;
-		$instance ?: $instance = new self();
-	}
+function kcjp_view_home( $gene ) {
+	$gene->add_lead_contents( 'kcjp_view_home_lead_contents' );
+	return $gene;
+}
 
-	/**
-	 * Constructor
-	 *
-	 * @access private
-	 *
-	 * @since 0.0.0
-	 */
-	private function __construct() {
-		Gene::getInstance()->add_lead_contents( [ $this, 'main_visual' ] );
-	}
-
-	/**
-	 * Rendering Main Visual for Home
-	 *
-	 * @access public
-	 *
-	 * @since 0.0.0
-	 */
-	public function main_visual() {
-		$bg_ground  = esc_url( get_template_directory_uri() . '/images/stadium2002_inside.jpg' );
-		$bg_stadium = esc_url( get_template_directory_uri() . '/images/stadium2002.png' );
-		$bg_title   = esc_url( get_template_directory_uri() . '/images/kcjp2015_logo_ds.png' );
-		$bg_info    = esc_url( get_template_directory_uri() . '/images/kcjp_info.png' ); ?>
+function kcjp_view_home_lead_contents() {
+	$bg_ground  = esc_url( get_template_directory_uri() . '/images/stadium2002_inside.jpg' );
+	$bg_stadium = esc_url( get_template_directory_uri() . '/images/stadium2002.png' );
+	$bg_title   = esc_url( get_template_directory_uri() . '/images/kcjp2015_logo_ds.png' );
+	$bg_info    = esc_url( get_template_directory_uri() . '/images/kcjp_info.png' ); ?>
 <style>
 	#kcjp-main-visual {
 		position: relative;
@@ -102,6 +73,6 @@ class Home {
 		jQuery( '#kcjp-main-visual' ).removeClass( 'container-fluid' ).addClass( 'container' );
 	}
 </script><?php
-	}
-
 }
+
+get_template_part( 'index' );

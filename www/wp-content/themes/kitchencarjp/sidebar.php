@@ -6,7 +6,7 @@
  */
 if ( function_exists( 'dynamic_sidebar' ) && dynamic_sidebar() ) : else : ?>
 <div id="access">
-<h3><i class="fa fa-map-marker"></i> 開場までのアクセス</h2>
+<h3><i class="fa fa-map-marker"></i> 会場までのアクセス</h2>
 	<div class="thumbnail">
 		<div class="caption">
 			<p class="h4"><i class="fa fa-arrow-right"></i> 埼玉高速鉄道をご利用ください</p>

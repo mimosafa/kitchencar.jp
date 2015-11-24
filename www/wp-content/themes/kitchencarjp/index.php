@@ -12,8 +12,7 @@
  *
  * @uses KCJP\View\Gene
  */
-$view = KCJP\View\Gene::getInstance();
-// $view::add_caption( function( $obj ) { echo '<h2>Test</h2>'; var_dump( $obj ); } );
+$view = apply_filters( 'kcjp_view_gene', KCJP\View\Gene::getInstance() );
 
 get_header( $view::context() );
 

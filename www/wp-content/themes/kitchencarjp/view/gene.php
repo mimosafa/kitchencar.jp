@@ -249,7 +249,7 @@ class Gene {
 	 */
 	public function localize_script() {
 		$data = [ 'bp' => $this->break_point ];
-		wp_localize_script( \KCJP\Scripts::THEME, 'KCJP_LAYOUT', $data );
+		wp_localize_script( 'kitchencarjp', 'KCJP_LAYOUT', $data );
 	}
 
 }
